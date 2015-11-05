@@ -1,6 +1,7 @@
 _site
 .idea
 node_modules
+.psd
 
 # Created by https://www.gitignore.io
 
@@ -11,6 +12,7 @@ node_modules
 
 ### Jekyll ###
 _site/
+_site/assets/img/*.psd
 .sass-cache/
 
 
