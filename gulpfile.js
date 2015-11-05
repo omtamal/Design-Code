@@ -9,6 +9,11 @@ var messages = {
     jekyllBuild: '<span style="color: grey">Running:</span> $ jekyll build'
 };
 
+function swallowError (error) {
+    //If you want details of the error in the console
+    console.log(error.toString());
+    this.emit('end');
+}
 
 
 
@@ -16,7 +21,6 @@ var messages = {
  * Build the Jekyll Site
  */
 gulp.task('jekyll-build', function (done) {
-    browserSync.notify(messages.jekyllBuild);
     return cp.spawn('jekyll.bat', ['build'], {stdio: 'inherit'})
         .on('close', done);
 });
@@ -56,8 +60,9 @@ gulp.task('sass', function () {
     return gulp.src('assets/css/main.scss')
         .pipe(sass({
             includePaths: ['css'],
-            onError: browserSync.notify
+            onError: browserSync.notify,
         }))
+        .on('error', swallowError)
         .pipe(prefix(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
         .pipe(gulp.dest('_site/assets/css'))
         .pipe(browserSync.reload({stream:true}))
@@ -72,6 +77,7 @@ gulp.task('sass', function () {
 gulp.task('jade', function(){
   return gulp.src('_jadefiles/*.jade')
   .pipe(jade())
+  .on('error', swallowError)
   .pipe(gulp.dest('_includes'))
 });
 
@@ -84,6 +90,7 @@ gulp.task('jade', function(){
  */
 gulp.task('watch', function () {
     gulp.watch('assets/css/**', ['sass']);
+    gulp.watch('assets/js/**', ['jekyll-rebuild']);
     gulp.watch(['index.html', '_layouts/*.html', '_includes/*'], ['jekyll-rebuild']);
     gulp.watch('_jadefiles/*.jade', ['jade']);
 });

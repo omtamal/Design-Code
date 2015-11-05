@@ -1,0 +1,106 @@
+.home-sections
+  section.articles
+    background: 
+      image: url(../img/article-bg.jpg)
+      repeat: repeat
+    padding: 0px 0px
+    
+    .col-1
+      display: flex
+      align-items: center
+
+    .home-cta
+      color: white
+      background: #3597dd
+    
+    .article-wrap
+      margin: 0px 0
+      +clearfix
+
+    .article-thumb
+      display: block
+      background:
+        size: cover
+        position: center
+      width: 25%
+      float: left
+      position: relative
+      overflow: hidden
+      opacity: 0
+      transition: all 300ms ease-in-out
+
+      &.is-visible
+        opacity: 1
+
+      &.is-emph
+        animation-name: jello
+        transform-origin: center
+        animation-duration: 1s
+        animation-fill-mode: both
+        z-index: 1
+
+      &:after
+        content: ''
+        display: block
+        padding-top: 100%
+
+    .article-meta
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      background: fade-out(#3597dd, 0.5)
+      color: white
+      padding: 10px
+      transform: translate(0%, 100%) scale(0.5)
+      transition: all 200ms ease-in-out
+      opacity: 0
+      
+      .name
+        font-size: 18px
+        line-height: 1.2
+
+      .date
+        font-style: italic
+
+    .article-thumb:hover .article-meta
+      opacity: 1
+      transform: translate(0%, 0%)  scale(1)
+
+    @media (max-width: 640px)
+      .col-1
+        flex-direction: column
+
+      .desc-wrap
+        margin: 30px 0 50px
+
+    @media (max-width: 1020px) and (min-width: 640px)
+      .article-thumb
+        width: 33.33%
+
+
+@keyframes jello 
+  from, 11.1%, 100% 
+    transform: none
+  
+  22.2% 
+    transform: skewX(-12.5deg) skewY(-12.5deg)
+  
+  33.3% 
+    transform: skewX(6.25deg) skewY(6.25deg)
+  
+  44.4% 
+    transform: skewX(-3.125deg) skewY(-3.125deg)
+  
+  55.5% 
+    transform: skewX(1.5625deg) skewY(1.5625deg)
+  
+  66.6% 
+    transform: skewX(-0.78125deg) skewY(-0.78125deg)
+  
+  77.7% 
+    transform: skewX(0.390625deg) skewY(0.390625deg)
+  
+  88.8% 
+    transform: skewX(-0.1953125deg) skewY(-0.1953125deg)
